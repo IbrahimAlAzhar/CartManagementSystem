@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            margin: 10px;
+        }
+        .card-img-top {
+            width: 100%;
+            height: 200px; /* You can adjust this if needed */
+            object-fit: cover; /* Keeps the aspect ratio without distorting the image */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-3">Product List</h1>
+        <input class="form-control mb-4" id="productSearch" type="text" placeholder="Search products...">
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4">
+                <div class="card">
+                    <!-- Clickable image that redirects to the product detail page -->
+                    <a href="{% url 'product_detail' product.id %}">
+                        <img src="{{ product.pictureURL }}" class="card-img-top" alt="{{ product.description }}">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.description }}</h5>
+                        <p class="card-text">
+                            Number: {{ product.number }}<br>
+                            Price: ${{ product.price }}<br>
+                            Weight: {{ product.weight }}kg<br>
+                            Quantity on Hand: {{ product.quantity_on_hand }}
+                        </p>
+                        <!-- Buttons for adding to cart and purchasing -->
+                        <button class="btn btn-primary" onclick="location.href='{% url 'add_to_cart' product.id %}'">Add to Cart</button>
+                        <button class="btn btn-success" onclick="location.href='{% url 'purchase' product.id %}'">Purchase</button>
+
+<!--                        <button class="btn btn-success" onclick="location.href='{% url 'process_to_checkout' product.id %}'">Purchase</button> -->
+
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p>No products available.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#productSearch").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".card").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+</body>
+</html>

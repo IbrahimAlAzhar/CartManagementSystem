@@ -1,0 +1,86 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Purchase Product</title>-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container mt-5">-->
+<!--        <h1>Purchase Product</h1>-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-6">-->
+<!--                <h2>Product Details</h2>-->
+<!--                <img src="{{ product.pictureURL }}" class="img-fluid mb-3" alt="{{ product.description }}" style="height:300px;">-->
+<!--                <p><strong>Description:</strong> {{ product.description }}</p>-->
+<!--                <p><strong>Number:</strong> {{ product.number }}</p>-->
+<!--                <p><strong>Price:</strong> $${{ product.price }}</p>-->
+<!--                <p><strong>Weight:</strong> {{ product.weight }} kg</p>-->
+<!--                <p><strong>Quantity on Hand:</strong> {{ product.quantity_on_hand }}</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-6">-->
+<!--                <h2>Enter Your Details</h2>-->
+<!--                <form action="{% url 'process_purchase' product.id %}" method="post">-->
+<!--                    {% csrf_token %}-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="quantity">Quantity:</label>-->
+<!--                        <input type="number" class="form-control" id="quantity" name="quantity" required min="1" value="1">-->
+<!--                    </div>-->
+<!--&lt;!&ndash;                    <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label for="name">Name:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="text" class="form-control" id="name" name="name" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label for="email">Email:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="email" class="form-control" id="email" name="email" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label for="address">Mailing Address:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="text" class="form-control" id="address" name="address" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label for="creditCard">Credit Card Information:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="text" class="form-control" id="creditCard" name="creditCard" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    <button type="submit" class="btn btn-success">Submit Purchase</button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <a href="{% url 'list_products' %}" class="btn btn-primary">Continue Shopping</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!-- product_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.description }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Product Details</h1>
+        <img src="{{ product.pictureURL }}" alt="{{ product.description }}" style="height:300px;">
+        <p><strong>Description:</strong> {{ product.description }}</p>
+        <p><strong>Number:</strong> {{ product.number }}</p>
+        <p><strong>Price:</strong> ${{ product.price }}</p>
+        <p><strong>Weight:</strong> {{ product.weight }} kg</p>
+        <p><strong>Quantity on Hand:</strong> {{ product.quantity_on_hand }}</p>
+
+        <form action="{% url 'process_to_checkout' product.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="{{ product.quantity_on_hand }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+        </form>
+    </div>
+</body>
+</html>

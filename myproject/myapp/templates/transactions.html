@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Transactions</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Transactions List</h1>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Vendor</th>
+                    <th>Transaction ID</th>
+                    <th>Credit Card</th>
+                    <th>Name</th>
+                    <th>Expiration</th>
+                    <th>Amount</th>
+                    <th>Brand</th>
+                    <th>Authorization</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.id }}</td>
+                    <td>{{ transaction.vendor }}</td>
+                    <td>{{ transaction.trans }}</td>
+                    <td>{{ transaction.cc }}</td>
+                    <td>{{ transaction.name }}</td>
+                    <td>{{ transaction.exp }}</td>
+                    <td>${{ transaction.amount }}</td>
+                    <td>{{ transaction.brand }}</td>
+                    <td>{{ transaction.authorization }}</td>
+                    <td>{{ transaction.timeStamp }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="10">No transactions found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

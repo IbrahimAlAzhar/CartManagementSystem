@@ -1,0 +1,96 @@
+<!--&lt;!&ndash; process_to_checkout.html &ndash;&gt;-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Checkout</title>-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container mt-5">-->
+<!--        <h1>Checkout</h1>-->
+<!--        <p><strong>Total Cost:</strong> ${{ total_cost }}</p>-->
+<!--        <p><strong>Shipping Charge:</strong> ${{ shipping_charge }}</p>-->
+<!--        <p><strong>Handling Charge:</strong> ${{ handling_charge }}</p>-->
+
+<!--        <form action="{% url 'purchase_success' %}" method="post">-->
+<!--            {% csrf_token %}-->
+<!--            <div class="form-group">-->
+<!--                <label for="name">Name:</label>-->
+<!--                <input type="text" class="form-control" id="name" name="name" required>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="email">Email:</label>-->
+<!--                <input type="email" class="form-control" id="email" name="email" required>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="address">Mailing Address:</label>-->
+<!--                <input type="text" class="form-control" id="address" name="address" required>-->
+<!--            </div>-->
+<!--            <button type="submit" class="btn btn-success">Submit Purchase</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!-- process_to_checkout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Checkout</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Product Details</h2>
+                <img src="{{ product.pictureURL }}" class="img-fluid mb-3" alt="{{ product.description }}" style="height:300px;">
+                <p><strong>Description:</strong> {{ product.description }}</p>
+                <p><strong>Number:</strong> {{ product.number }}</p>
+                <p><strong>Price:</strong> ${{ product.price }}</p>
+                <p><strong>Weight:</strong> {{ product.weight }} kg</p>
+                <p><strong>Quantity Ordered:</strong> {{ quantity }}</p>
+                <p><strong>Shipping Charge:</strong> ${{ shipping_charge }}</p>
+                <p><strong>Handling Charge:</strong> ${{ handling_charge }}</p>
+                <p><strong>Total Cost:</strong> ${{ total_cost }}</p>
+            </div>
+            <div class="col-md-6">
+            <h2>Enter Your Details</h2>
+            <form action="{% url 'process_purchase' product.id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Quantity:</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" required min="1">
+                </div>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Mailing Address:</label>
+                    <input type="text" class="form-control" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="creditCard">Credit Card Information:</label>
+                    <input type="text" class="form-control" id="creditCard" name="creditCard" required>
+                </div>
+                <div class="form-group">
+                        <label for="creditCardExpirationDate">Credit Card Expiration Date (MM/YYYY):</label>
+                        <input type="text" class="form-control" id="creditCardExpirationDate" name="creditCardExpirationDate" required placeholder="MM/YYYY">
+                    </div>
+                <button type="submit" class="btn btn-success">Submit Purchase</button>
+            </form>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
